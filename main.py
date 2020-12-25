@@ -25,9 +25,9 @@ class EditorWindow(Gtk.Window):
         saveButton = Gtk.ToolButton()
         saveButton.set_icon_name("document-save-as")
         saveButton.connect("clicked", self.saveBuffer, textBuffer)
-        toolBar.insert(saveButton, 0)
+        toolBar.insert(saveButton, -1)
 
-        toolBar.insert(Gtk.SeparatorToolItem(), 1)
+        toolBar.insert(Gtk.SeparatorToolItem(), -1)
 
         boldButton = Gtk.ToolButton()
         boldButton.set_icon_name("format-text-bold")
@@ -35,7 +35,7 @@ class EditorWindow(Gtk.Window):
         boldButton.connect("clicked", lambda widget:
             textBuffer.apply_tag(boldTag, *textBuffer.get_selection_bounds())
         )
-        toolBar.insert(boldButton, 2)
+        toolBar.insert(boldButton, -1)
 
         return toolBar
 
