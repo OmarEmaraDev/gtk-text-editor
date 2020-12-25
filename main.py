@@ -42,8 +42,8 @@ class EditorWindow(Gtk.Window):
     def saveBuffer(self, widget, textBuffer):
         saveDialog = Gtk.FileChooserDialog()
         saveDialog.set_action(Gtk.FileChooserAction.SAVE)
-        saveDialog.add_button(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL)
-        saveDialog.add_button(Gtk.STOCK_SAVE, Gtk.ResponseType.OK)
+        saveDialog.add_button("Cancel", Gtk.ResponseType.CANCEL)
+        saveDialog.add_button("Save As", Gtk.ResponseType.OK)
 
         response = saveDialog.run()
         if response != Gtk.ResponseType.OK:
