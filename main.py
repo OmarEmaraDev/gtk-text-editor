@@ -37,6 +37,30 @@ class EditorWindow(Gtk.Window):
         )
         toolBar.insert(boldButton, -1)
 
+        italicButton = Gtk.ToolButton()
+        italicButton.set_icon_name("format-text-italic")
+        italicTag = textBuffer.create_tag("italic", style = Pango.Style.ITALIC)
+        italicButton.connect("clicked", lambda widget:
+            textBuffer.apply_tag(italicTag, *textBuffer.get_selection_bounds())
+        )
+        toolBar.insert(italicButton, -1)
+
+        underlineButton = Gtk.ToolButton()
+        underlineButton.set_icon_name("format-text-underline")
+        underlineTag = textBuffer.create_tag("underline", underline = Pango.Underline.SINGLE)
+        underlineButton.connect("clicked", lambda widget:
+            textBuffer.apply_tag(underlineTag, *textBuffer.get_selection_bounds())
+        )
+        toolBar.insert(underlineButton, -1)
+
+        strikethroughButton = Gtk.ToolButton()
+        strikethroughButton.set_icon_name("format-text-strikethrough")
+        strikethroughTag = textBuffer.create_tag("strikethrough", strikethrough = True)
+        strikethroughButton.connect("clicked", lambda widget:
+            textBuffer.apply_tag(strikethroughTag, *textBuffer.get_selection_bounds())
+        )
+        toolBar.insert(strikethroughButton, -1)
+
         toolBar.insert(Gtk.SeparatorToolItem(), -1)
         
         toolButton = Gtk.ToolButton()
