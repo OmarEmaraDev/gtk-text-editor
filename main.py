@@ -117,7 +117,7 @@ class EditorWindow(Gtk.Window):
         
     def openBuffer(self, widget, textBuffer):
         openDialog = Gtk.FileChooserDialog()
-        openDialog.set_action(Gtk.FileChooserAction.OPEN)
+        openDialog.set_action(Gtk.FileChooserAction.OK)
         openDialog.add_button("Cancel", Gtk.ResponseType.CANCEL)
         openDialog.add_button("OPEN", Gtk.ResponseType.OPEN)
 
@@ -129,8 +129,8 @@ class EditorWindow(Gtk.Window):
         bounds = textBuffer.get_bounds()
         deserializationFormat = textBuffer.register_deserialize_tagset()
         deserial = textBuffer.deserialize(textBuffer, deserializationFormat, *bounds)
-        with open(path, 'wb') as outputFile:
-            outputFile.write(deserial)
+        with open(path, 'rb') as outputFile:
+            outputFile.read()
 
         openDialog.destroy()
 
