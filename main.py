@@ -128,7 +128,7 @@ class EditorWindow(Gtk.Window):
         path = os.path.join(openDialog.get_current_folder(), openDialog.get_filename())
         bounds = textBuffer.get_bounds()
         deserializationFormat = textBuffer.register_deserialize_tagset()
-        deserial = textBuffer.deserialize(textBuffer, deserializationFormat, *bounds)
+        deserial = textBuffer.deserialize(textBuffer, deserializationFormat, textiter, data)
         with open(path, 'rb') as outputFile:
             outputFile.read()
 
