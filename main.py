@@ -117,9 +117,9 @@ class EditorWindow(Gtk.Window):
         
     def openBuffer(self, widget, textBuffer):
         openDialog = Gtk.FileChooserDialog()
-        openDialog.set_action(Gtk.FileChooserAction.OK)
+        openDialog.set_action(Gtk.FileChooserAction.OPEN)
         openDialog.add_button("Cancel", Gtk.ResponseType.CANCEL)
-        openDialog.add_button("OPEN", Gtk.ResponseType.OPEN)
+        openDialog.add_button("OPEN", Gtk.ResponseType.OK)
 
         response = openDialog.run()
         if response != Gtk.ResponseType.OK:
