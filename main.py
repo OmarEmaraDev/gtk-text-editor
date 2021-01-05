@@ -23,11 +23,9 @@ class EditorWindow(Gtk.Window):
         textBuffer = textView.get_buffer()
         
         openButton = Gtk.ToolButton()
-        openButton.set_icon_name("open-document")
+        openButton.set_icon_name("document-new")
         openButton.connect("clicked", self.openBuffer, textBuffer)
         toolBar.insert(openButton, -1)
-        
-        toolBar.insert(Gtk.SeparatorToolItem(), -1)
         
         saveButton = Gtk.ToolButton()
         saveButton.set_icon_name("document-save-as")
@@ -67,13 +65,6 @@ class EditorWindow(Gtk.Window):
             textBuffer.apply_tag(strikethroughTag, *textBuffer.get_selection_bounds())
         )
         toolBar.insert(strikethroughButton, -1)
-
-        toolBar.insert(Gtk.SeparatorToolItem(), -1)
-        
-        toolButton = Gtk.ToolButton()
-        toolButton.set_icon_name("preferences-desktop-font")
-        toolButton.connect("clicked", self.setFont, textBuffer)
-        toolBar.insert(toolButton, -1)
 
         toolBar.insert(Gtk.SeparatorToolItem(), -1)
         
@@ -156,18 +147,22 @@ class EditorWindow(Gtk.Window):
         openDialog = Gtk.FileChooserDialog()
         openDialog.set_action(Gtk.FileChooserAction.OPEN)
         openDialog.add_button("Cancel", Gtk.ResponseType.CANCEL)
-        openDialog.add_button("OPEN", Gtk.ResponseType.OK)
-        
+        openDialog.add_button("Open", Gtk.ResponseType.OK)
+
         response = openDialog.run()
         if response != Gtk.ResponseType.OK:
             openDialog.destroy()
             return
+
         path = openDialog.get_filename()
-        deserializationFormat = textBuffer.register_deserialize_tagset()
-        with open(path) as outputFile:
-            data = outputFile.read()
-        textBuffer.deserialize(textBuffer, deserializationFormat, startiter=textBuffer.get_start_iter(), data)
-        set_text(text)
+        with open(path, 'rb') as inputFile:
+            startIter = textBuffer.get_start_iter()
+            endIter = textBuffer.get_end_iter()
+            deserializationFormat = textBuffer.register_deserialize_tagset()
+            data = inputFile.read()
+            textBuffer.delete(startIter, endIter)
+            textBuffer.deserialize(textBuffer, deserializationFormat, startIter, data)
+
         openDialog.destroy()
 
         
