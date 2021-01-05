@@ -2,20 +2,26 @@ Idea title:
 9. xText Editor
 
 Team members:
+
+Mohamed Osama Mohamed Rashad
 محمد اسامه محمد رشاد محمد
 20180470
 
+Omar Ahmad Abd-Elfatah Mohamed
 عمر أحمد عبدالفتاح محمد
 20180364
 
+Karim Ashraf Saiid
 كريم اشرف سعيد
 20180424
 
+Mohamed Abd-Allah Youssef Ibrahim
 محمد عبدالله يوسف إبراهيم
 20180517
 
+Hassan Mustafa Hassan Hasanin
 حسن مصطفى حسن حسنين
 20160519
 
 Registration sheet, row number:
-91
+77
