@@ -21,7 +21,14 @@ class EditorWindow(Gtk.Window):
         toolBar = Gtk.Toolbar()
 
         textBuffer = textView.get_buffer()
-
+        
+        openButton = Gtk.ToolButton()
+        openButton.set_icon_name("open-document")
+        openButton.connect("clicked", self.openBuffer, textBuffer)
+        toolBar.insert(openButton, -1)
+        
+        toolBar.insert(Gtk.SeparatorToolItem(), -1)
+        
         saveButton = Gtk.ToolButton()
         saveButton.set_icon_name("document-save-as")
         saveButton.connect("clicked", self.saveBuffer, textBuffer)
@@ -144,9 +151,26 @@ class EditorWindow(Gtk.Window):
             tag = textBuffer.create_tag(tagName, font_desc=fontDescriptor)
         textBuffer.apply_tag(tag, *textBuffer.get_selection_bounds())
         fontChooserDialog.destroy()
+        
+    def openBuffer(self, widget, textBuffer):
+        openDialog = Gtk.FileChooserDialog()
+        openDialog.set_action(Gtk.FileChooserAction.OPEN)
+        openDialog.add_button("Cancel", Gtk.ResponseType.CANCEL)
+        openDialog.add_button("OPEN", Gtk.ResponseType.OK)
+        
+        response = openDialog.run()
+        if response != Gtk.ResponseType.OK:
+            openDialog.destroy()
+            return
+        path = openDialog.get_filename()
+        deserializationFormat = textBuffer.register_deserialize_tagset()
+        with open(path) as outputFile:
+            data = outputFile.read()
+        textBuffer.deserialize(textBuffer, deserializationFormat, startiter=textBuffer.get_start_iter(), data)
+        set_text(text)
+        openDialog.destroy()
 
-
-
+        
 editorWindow = EditorWindow()
 editorWindow.connect("destroy", Gtk.main_quit)
 editorWindow.show_all()
