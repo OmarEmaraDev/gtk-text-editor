@@ -120,7 +120,7 @@ class EditorWindow(Gtk.Window):
         openDialog.set_action(Gtk.FileChooserAction.OPEN)
         openDialog.add_button("Cancel", Gtk.ResponseType.CANCEL)
         openDialog.add_button("OPEN", Gtk.ResponseType.OK)
-
+        
         response = openDialog.run()
         if response != Gtk.ResponseType.OK:
             openDialog.destroy()
@@ -128,13 +128,12 @@ class EditorWindow(Gtk.Window):
         path = os.path.join(openDialog.get_current_folder(), openDialog.get_filename())
         bounds = textBuffer.get_bounds()
         deserializationFormat = textBuffer.register_deserialize_tagset()
-        deserial = textBuffer.deserialize(textBuffer, deserializationFormat, textiter, data)
+        deserial = textBuffer.deserialize(textBuffer, deserializationFormat, text, data)
         with open(path, 'rb') as outputFile:
-            outputFile.read()
-
+            data = outputFile.read()
+            textBuffer.set_text(text)
         openDialog.destroy()
-
-
+        
 editorWindow = EditorWindow()
 editorWindow.connect("destroy", Gtk.main_quit)
 editorWindow.show_all()
