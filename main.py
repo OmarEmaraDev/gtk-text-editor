@@ -68,6 +68,43 @@ class EditorWindow(Gtk.Window):
         toolButton.connect("clicked", self.setFont, textBuffer)
         toolBar.insert(toolButton, -1)
 
+        toolBar.insert(Gtk.SeparatorToolItem(), -1)
+        
+        toolButton = Gtk.ToolButton()
+        toolButton.set_icon_name("preferences-desktop-font")
+        toolButton.connect("clicked", self.setFont, textBuffer)
+        toolBar.insert(toolButton, -1)
+
+        toolBar.insert(Gtk.SeparatorToolItem(), -1)
+ 
+        justifyLeftButton = Gtk.RadioToolButton()
+        justifyLeftButton.set_icon_name("format-justify-left")
+        justifyLeftButton.connect("toggled", lambda widget:
+            textView.set_justification(Gtk.Justification.LEFT)
+        )
+        toolBar.insert(justifyLeftButton, -1)
+
+        justifyCenterButton = Gtk.RadioToolButton.new_from_widget(justifyLeftButton)
+        justifyCenterButton.set_icon_name("format-justify-center")
+        justifyCenterButton.connect("toggled", lambda widget:
+            textView.set_justification(Gtk.Justification.CENTER)
+        )
+        toolBar.insert(justifyCenterButton, -1)
+
+        justifyRightButton = Gtk.RadioToolButton.new_from_widget(justifyLeftButton)
+        justifyRightButton.set_icon_name("format-justify-right")
+        justifyRightButton.connect("toggled", lambda widget:
+            textView.set_justification(Gtk.Justification.RIGHT)
+        )
+        toolBar.insert(justifyRightButton, -1)
+
+        justifyFillButton = Gtk.RadioToolButton.new_from_widget(justifyLeftButton)
+        justifyFillButton.set_icon_name("format-justify-fill")
+        justifyFillButton.connect("toggled", lambda widget:
+            textView.set_justification(Gtk.Justification.FILL)
+        )
+        toolBar.insert(justifyFillButton, -1)
+        
         return toolBar
 
     def saveBuffer(self, widget, textBuffer):
